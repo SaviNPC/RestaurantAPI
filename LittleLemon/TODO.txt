@@ -1,0 +1,91 @@
+[X] Initial setup
+[] /api path
+[] Users
+    [] Customer
+    [] Manager
+    [] Delivery Crew
+[] User registration and authentication > /api/users
+[] Assign users to groups > api/users/{userId}/groups
+[] Groups:
+    [] Manager
+    [] Delivery crew
+[] Roles
+    [] Manager
+        Edit menu > /api/menu-items
+        Update user role > /api/users/{userId}/groups
+    [] Customer
+        No group = customer
+        Browse menu items, filter, and search
+        Add to cart > /api/users/{userId}/cart/menu-items
+        Place order > /api/orders
+        Empty cart > Flush cart > /api/users/{userId}/cart
+        View own order + status + total price > /api/orders > customer token
+    [] Delivery Process
+        Manager > browse, assign, filter orders > /api/orders > manager token
+        /api/orders/{orderId} > manager token
+        - Filter orders by status (delivered, pending)
+	    /api/orders?status=delivered> manager token
+	    /api/orders/status=pending > manager token
+    [] Delivery Crew
+        - Browse orders, mark, update order once delivered
+	    /api/orders > delivery token
+	    /api/orders/{orderId} > delivery token
+[] Throttling > 5 api calls per minute
+[] Make sure API calls support only required methods
+[] Always return status codes
+
+---
+
+API endpoints:
+
+User Registration and token generation endpoints(use djoser):
+- /api/users/ > no role required > POST method > Creates a new user with name, email, and password
+- /api/users/users/me/ > anyone with a valid user token > GET > Displays only the current user
+- /token/login > Anyone with a valid un and pw > POST > Generates access tokens that can be used in other API calls in this project
+
+Menu-items endpoints:
+- /api/menu-items > Customer, delivery crew > GET > Lists all menu items. Returns 200 ok
+- /api/menu-items > Customer, delivery crew > POST, PUT, PATCH, DETELE > Denies access and returns 403 Unauthorized
+- /api/menu-items/{menuItem} > customer, delivery crew > GET > lists single menu item
+- /api/menu-items/{menuItem} > post, put, patch, delete > returns 403 unauth
+- /api/menu-items > manager > GET > lists all menu items
+- /api/menu-items > manager > POST > creates new menu item returns 201 created
+- /api/menu-items/{menuItem} > GET > Lists single menu item
+- /api/menu-items/{menuItem} > PUT, PATCH > Updates single menu item
+- /api/menu-items/{menuItem} > DETELE > Deletes menu item
+
+User group management endpoints:
+- /api/groups/manager/users > Manager > GET > returns all managers
+- /api/groups/manager/users > Manager > POST > assigns the user in the payload to the manager group and returns 201 created
+- /api/groups/manager/users/{userId} > Manager > DELETE > removes this particular user from manager group and returns 200- success if ok. Si user not found, 404 not found
+- /api/groups/delivery-crew/users > Manager > GET > Returns all delivery crew
+- /api/groups/deliver-crew/users > Manager > POST > Assigns the user in the payload to delivery crew group and returns 201 created
+- /api/groups/delivery-crew/users/{userId} > Manager > DELETE > Removes this user from manager group and returns 200 success if ok. Si user not found, return 404 not found
+
+Cart management endpoints:
+- /api/cart/menu-items > Customer > GET > Returns current items in the cart for the current user token
+- /api/cart/menu-items > Customer > POST > adds the menu item to the cart. Sets authenticated user as the user id for these cart items
+- /api/cart/menu-items > Customer > DELETE > deletes all menu items created by the current user token
+
+Order management endpoints:
+
+- /api/orders > Customer > GET > Returns all orders with order items created by this user
+- /api/orders > Customer > POST > Creates a new order item for the current user. Gets current cart items from the cart endpoints and adds those items to the order items table. Then deletes all items from the cart for this user
+- /api/orders/{orderId} > Customer > GET > Returns all items for this order id. If the order id doesnt belong to current user, http error
+- /api/orders > Manager > GET > Returns all orders with order items by all users
+- /api/orders/{orderId} > Customer > PUT, PATCH > Updates the order. A manager can use this endpoint to set a delivery crew to this order and also update the order status to 0 or 1. If a delivery crew is assigned to this order and the status = 0, it means the order is out for delivery. If delivery crew is assigned to this order and the status = 1, it means the order has been delivered
+- /api/orders/{orderId} > Manager > DELETE > Deletes this order
+- /api/orders > Delivery Crew > GET > Returns all orders with order items assigned to the delivery crew
+- /api/orders/{orderId} > Delivery Crew > PATCH > A delivery crew can use this endpoint to update the order status to 0 or 1. Delivery crew will not be able to update anything else in this order
+
+-
+Additional step:
+Implement proper filtering, pagination and sorting capabilities for:
+- /api/menu-items and /api/orders endpoints
+
+---
+
+Superuser:
+admin
+admin@ll.com
+pw123
