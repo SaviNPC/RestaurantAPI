@@ -1,14 +1,14 @@
 [X] Initial setup
 [] /api path
-[] Users
-    [] Customer
-    [] Manager
-    [] Delivery Crew
+[X] Users
+    [X] Customer
+    [X] Manager
+    [X] Delivery Crew
 [] User registration and authentication > /api/users
 [] Assign users to groups > api/users/{userId}/groups
-[] Groups:
-    [] Manager
-    [] Delivery crew
+[x] Groups:
+    [x] Manager
+    [x] Delivery crew
 [] Roles
     [] Manager
         Edit menu > /api/menu-items
@@ -82,9 +82,6 @@ Order management endpoints:
 Additional step:
 Implement proper filtering, pagination and sorting capabilities for:
 - /api/menu-items and /api/orders endpoints
-
-Probando cambios GIT!
-
 ---
 
 Superuser:
