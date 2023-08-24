@@ -1,0 +1,38 @@
+UN: adrian
+PW: adr!12321
+Name: Adrian
+Email: adrian@ll.com
+Group: Manager
+
+UN: mario
+PW: mar!12321
+Name: Mario
+Email: mario@ll.com
+Group: Manager
+
+UN: jenny
+PW: jen!12321
+Name: Jenny
+Email: jenny@ll.com
+
+UN: jimmy
+PW: jim!12321
+Name: Jimmy
+Email: jimmy@ll.com
+Group: Delivery Crew
+
+UN: carlos
+PW: car!12321
+Name: Carlos
+Email: carlos@ll.com
+Group: Delivery Crew
+
+UN: ruben
+PW: rub!12321
+Name:
+Email: ruben@ll.com
+
+UN: tony
+PW: ton!12321
+Name:
+Email: tony@ll.com
