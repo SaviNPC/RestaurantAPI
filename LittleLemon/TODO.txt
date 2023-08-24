@@ -1,38 +1,38 @@
 [X] Initial setup
-[] /api path
+[X] /api path
 [X] Users
     [X] Customer
     [X] Manager
     [X] Delivery Crew
-[] User registration and authentication > /api/users
-[] Assign users to groups > api/users/{userId}/groups
+[X] User registration and authentication > /api/users
+[X] Assign users to groups > api/users/{userId}/groups
 [x] Groups:
     [x] Manager
     [x] Delivery crew
-[] Roles
-    [] Manager
+[X] Roles
+    [X] Manager
         Edit menu > /api/menu-items
         Update user role > /api/users/{userId}/groups
-    [] Customer
+    [X] Customer
         No group = customer
         Browse menu items, filter, and search
         Add to cart > /api/users/{userId}/cart/menu-items
         Place order > /api/orders
         Empty cart > Flush cart > /api/users/{userId}/cart
         View own order + status + total price > /api/orders > customer token
-    [] Delivery Process
+    [X] Delivery Process
         Manager > browse, assign, filter orders > /api/orders > manager token
         /api/orders/{orderId} > manager token
         - Filter orders by status (delivered, pending)
 	    /api/orders?status=delivered> manager token
 	    /api/orders/status=pending > manager token
-    [] Delivery Crew
+    [X] Delivery Crew
         - Browse orders, mark, update order once delivered
 	    /api/orders > delivery token
 	    /api/orders/{orderId} > delivery token
-[] Throttling > 5 api calls per minute
-[] Make sure API calls support only required methods
-[] Always return status codes
+[X] Throttling 
+[X] Make sure API calls support only required methods
+[X] Always return status codes
 
 ---
 
